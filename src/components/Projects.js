@@ -2,7 +2,7 @@ import { useContext, useEffect, useState} from "react";
 import { ProjectCard } from "./ProjectCard";
 import UserContext from '../context/GlobalState';
 
-
+import axios from 'axios'
 
 import { motion } from "framer-motion";
 
@@ -14,7 +14,8 @@ const Projects =  () => {
 
     const [show, setShow] = useState(false)
 
-    const {projects, getProjects} = useContext(UserContext)
+    const {projects, getProjects, deleteProject, deleteTask} = useContext(UserContext)
+
 
 
     return (
@@ -34,6 +35,8 @@ const Projects =  () => {
                             title = {project.title}
                             tasks = {project.tasks}
                             id= {project._id}
+                            deleteProject={deleteProject}
+                            deleteTask ={deleteTask} 
                         />
                         </li>
                     )

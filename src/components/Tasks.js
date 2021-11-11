@@ -1,12 +1,13 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
 import UserContext from '../context/GlobalState'
 
 import axios from 'axios'
 
 import  Button  from 'react-bootstrap/Button'
 import  Card  from 'react-bootstrap/Card'
-import  Modal  from 'react-bootstrap/Modal'
+
 
 import { motion } from "framer-motion";
 import { AddTaskModal } from './AddTaskModal'
@@ -15,40 +16,37 @@ import { AddTaskModal } from './AddTaskModal'
 
 export const Tasks = ({match}) => {
 
+    const location = useHistory();
 
-    const [tasks, setTasks] = useState([])
-    const [load, setLoad] = useState(false)
+    const {tasks, getTasks, projects} = useContext(UserContext)
 
     // //Modal State 
     const [show, setShow] = useState(false)
 
     const projectId = match.params.id
 
-    const {projects} = useContext(UserContext)
-
     const pageProject = projects.filter(project => 
         project._id == projectId
     )
 
-    
     const projectTasks = tasks.filter(task => {
         return(task.projectId == projectId)
     })
 
 
 
-    const loadTaskList = () => {
-        axios.get('/Tasks')
-        .then(response => {
-            setTasks(response.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // const loadTaskList = () => {
+    //     axios.get('/Tasks')
+    //     .then(response => {
+    //         setTasks(response.data)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
     useEffect(() => {
-        loadTaskList()                         
+        console.log(location)                      
     }, [])
 
     return (
@@ -59,8 +57,8 @@ export const Tasks = ({match}) => {
         transition={{ duration: 0.25 }}
         >
             <div>
-                <h1 className='main-header'>{pageProject[0].title}</h1>
-                {show? '': <AddTaskModal show={show} setShow={setShow} id ={projectId}/>}
+                {projects.length > 0? <h1 className='main-header'>{pageProject[0].title}</h1> : ''}
+                {show? '': <AddTaskModal show={show} setShow={setShow} id ={projectId} getTasks={getTasks}/>}
                 <ul className='projects'>
                     { projectTasks &&
                         projectTasks.map(task => {

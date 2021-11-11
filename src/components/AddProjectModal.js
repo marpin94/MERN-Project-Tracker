@@ -28,7 +28,6 @@ export const AddProjectModal = ({getProjects}) => {
         const newProject = {
             title: title,
             description: description,
-            _id: Math.floor(Math.random() * 1000)
         }
 
         axios.post('/Projects/add', newProject)

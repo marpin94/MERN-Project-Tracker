@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 
 import PlusCircle from "../images/PlusCirlce";
 
-export const AddTaskModal = ({id}) => {
+export const AddTaskModal = ({id, getTasks}) => {
 
     const [show, setShow] = useState(false)
 
@@ -32,6 +32,8 @@ export const AddTaskModal = ({id}) => {
 
         axios.post('Tasks/add', newTask)
             .then(res => console.log(res.data))
+
+        getTasks()
 
         setShow(false)
     }
