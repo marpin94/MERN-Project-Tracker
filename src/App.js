@@ -23,18 +23,47 @@ function App() {
     })
   }
 
+  const deleteProject = (id) => {
+    axios.delete('/Projects/'+id)
+    .then(response => {console.log(response.data)})
+
+    getProjects()
+
+  }
+
+  const getTasks = () => {
+    axios.get('/Tasks')
+    .then(response => {
+        setTasks(response.data)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+  }
+
+  const deleteTask = (id) => {
+    axios.delete('/Tasks/' +id)
+    .then(response => {console.log(response.data)})
+
+    getTasks()
+  }
+
   useEffect(() => {
     getProjects();
+    getTasks();
+
+    console.log(tasks)
   }, [])
 
   const [projects, setProjects] = useState([])
+  const [tasks, setTasks] = useState([])
 
   const location = useLocation();
 
 
   return (
     <div className="App">
-        <GlobalState.Provider value ={{projects, setProjects, getProjects}} >
+        <GlobalState.Provider value ={{projects, setProjects, getProjects, deleteProject, tasks, getTasks, deleteTask}} >
           <AnimatePresence exitBeforeEnter initial={false}>
             <Switch location={location} key={location.pathname}>  
               <Route path='/' exact component={Projects}/>

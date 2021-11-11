@@ -11,17 +11,21 @@ router.route('/add').post((req,res) => {
 
     const title = req.body.title;
     const description = req.body.description;
-    const _id = req.body._id;
 
     const newProject = new Project({
         title,
         description,
-        _id
     })
 
     newProject.save()
     .then(()=> res.json('Project Added'))
     .catch((err => res.status(400).json('Error: ' + err)))
+})
+
+router.route('/:id').delete((req,res) => {
+    Project.findByIdAndDelete(req.params.id)
+    .then(project => res.json(project))
+    .catch(err => res.status(400).json('Error ' + err))
 })
 
 
