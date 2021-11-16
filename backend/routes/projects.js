@@ -29,5 +29,16 @@ router.route('/:id').delete((req,res) => {
 })
 
 
+router.route('/addTask/:id').post((req,res) => {
+    Project.findByIdAndUpdate(req.params.id,
+        {$push:
+        {"tasks": {taskTitle: req.body.taskTitle, 
+        taskDescription: req.body.taskDescription, 
+        priority: req.body.priority}}},
+        {safe:true, upsert:true, new:true} )
+        .then(() => res.json('Task Added'))
+        .catch(err => res.status(400).json('Error '+ err))
+})
+
 
 module.exports = router

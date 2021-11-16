@@ -6,7 +6,6 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import PlusCircle from "../images/PlusCirlce";
 
 export const AddTaskModal = ({id, getTasks}) => {
 
@@ -24,16 +23,14 @@ export const AddTaskModal = ({id, getTasks}) => {
         e.preventDefault();
 
         const newTask = {
-            title: taskTitle,
-            description: taskDescription,
+            taskTitle: taskTitle,
+            taskDescription: taskDescription,
             priority: taskPriority,
             projectId: id
         }
 
-        axios.post('Tasks/add', newTask)
+        axios.post('/Projects/addTask/'+id, newTask)
             .then(res => console.log(res.data))
-
-        getTasks()
 
         setShow(false)
     }

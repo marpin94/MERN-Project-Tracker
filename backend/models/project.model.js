@@ -9,8 +9,8 @@ const projectSchema = new Schema({
     tasks:[
         {
             taskTitle: {type:String},
-            priority: {type:String},
-            taskDescription:{type:String}
+            taskDescription:{type:String},
+            priority: {type:String}            
         }
     ]
 }, {

@@ -18,7 +18,7 @@ export const Tasks = ({match}) => {
 
     const location = useHistory();
 
-    const {tasks, getTasks, projects} = useContext(UserContext)
+    const {tasks, projects} = useContext(UserContext)
 
     // //Modal State 
     const [show, setShow] = useState(false)
@@ -29,25 +29,8 @@ export const Tasks = ({match}) => {
         project._id == projectId
     )
 
-    const projectTasks = tasks.filter(task => {
-        return(task.projectId == projectId)
-    })
+    const projectTasks = pageProject[0].tasks
 
-
-
-    // const loadTaskList = () => {
-    //     axios.get('/Tasks')
-    //     .then(response => {
-    //         setTasks(response.data)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     })
-    // }
-
-    useEffect(() => {
-        console.log(location)                      
-    }, [])
 
     return (
         <motion.div
@@ -58,14 +41,18 @@ export const Tasks = ({match}) => {
         >
             <div>
                 {projects.length > 0? <h1 className='main-header'>{pageProject[0].title}</h1> : ''}
-                {show? '': <AddTaskModal show={show} setShow={setShow} id ={projectId} getTasks={getTasks}/>}
+                {show? '': <AddTaskModal show={show} setShow={setShow} id ={projectId}/>}
                 <ul className='projects'>
                     { projectTasks &&
                         projectTasks.map(task => {
                             return(
                                 <Card border='info'>
-                                    <Card.Title>{task.title} </Card.Title>
-                                    <Card.Body>{task.priority}</Card.Body>
+                                    <Card.Title>{task.taskTitle} </Card.Title>
+                                    <Card.Body>
+                                        <Card.Text>
+                                        {task.taskDescription} 
+                                        </Card.Text>
+                                    </Card.Body>
                                 </Card>
                             )
                         })
