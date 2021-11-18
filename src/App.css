@@ -1,6 +1,26 @@
 * {
   margin: 8px;
 }
+.app{
+  display: grid;
+  grid-template-columns: 0.4fr 1.6fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-areas: 
+    "projects tasks";
+}
+
+.projects{
+  grid-area: projects;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.tasks{
+  grid-area: tasks;
+  /* display: flex;
+  flex-direction: column; */
+}
 
 button {
   border: none;
@@ -22,19 +42,18 @@ li {
   list-style: none;
 }
 
-.projects{
-  display: flex;
-  flex-direction: column;
-}
 
 .card-link {
-  text-decoration: none;
-  margin-left: auto;
-  margin-right: auto;
+  flex-wrap:nowrap;
 }
 
 .card-link:hover {
   cursor: pointer;
+}
+
+.project-card {
+  display: flex;
+  justify-content: space-between;
 }
 
 .project-card:hover {

@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import UserContext from '../context/GlobalState'
+import Card from 'react-bootstrap/Card'
+import XCircle from '../images/XCircle'
 
-export const TaskCard = () => {
+import axios from 'axios'
+
+export const TaskCard = ({task, getTasks}) => {
+
+    const {deleteTask, currentProject} = useContext(UserContext)
+
+
+
+    const handleDelete = () => {
+        deleteTask(currentProject._id, task)
+        getTasks(currentProject._id)
+    }
+
+
     return (
         <div>
-            Tasks
+            <Card border='info'>
+                <Card.Title>{task.taskTitle} </Card.Title>
+                <Card.Body>
+                    <Card.Text>
+                    {task.taskDescription} 
+                    </Card.Text>
+                </Card.Body>
+                <button onClick = {() => handleDelete()}> Delete </button>
+            </Card>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import PlusCircle from "../images/PlusCirlce";
+import PlusCircle from "../images/PlusCircle";
 
 export const AddProjectModal = ({getProjects}) => {
 
@@ -16,7 +16,6 @@ export const AddProjectModal = ({getProjects}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [id, setId] = useState('');
 
     const handleShow = () => {
         setShow(true)
@@ -34,6 +33,9 @@ export const AddProjectModal = ({getProjects}) => {
             .then(res => console.log(res.data))
 
         setShow(false)
+
+        setTitle('')
+        setDescription('')
 
         getProjects();
 

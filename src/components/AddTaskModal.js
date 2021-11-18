@@ -1,19 +1,25 @@
 import React from 'react'
-import {useState} from "react";
+import {useState, useContext, useEffect} from "react";
 
 import axios from 'axios'
+
+import UserContext from '../context/GlobalState';
+
+import PlusCircle from "../images/PlusCircle";
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 
-export const AddTaskModal = ({id, getTasks}) => {
+export const AddTaskModal = ({currentProject, getTasks}) => {
 
     const [show, setShow] = useState(false)
 
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskPriority, setTaskPriority] = useState('');
+
+    const {projects, getProjects, tasks, setTasks} = useContext(UserContext)
 
     const handleShow = () => {
         setShow(true)
@@ -26,21 +32,30 @@ export const AddTaskModal = ({id, getTasks}) => {
             taskTitle: taskTitle,
             taskDescription: taskDescription,
             priority: taskPriority,
-            projectId: id
+            id: currentProject._id
         }
 
-        axios.post('/Projects/addTask/'+id, newTask)
+        axios.post('/Projects/addTask/'+currentProject._id, newTask)
             .then(res => console.log(res.data))
+
+
+        getTasks(currentProject._id)
+
+        setTaskTitle('')
+        setTaskDescription('')
+        setTaskPriority('')
 
         setShow(false)
     }
+    
 
     const handleClose = () => {
         setShow(false)
     }
+    
     return (
         <div>
-            <Button variant = 'primary' onClick={() => handleShow()}> Add Tasks </Button>
+            {currentProject == null ? 'Select a Project to create tasks': <button onClick={() => handleShow()}> <PlusCircle/> </button>}
             <Modal show={show} onHide = {handleClose}>
                 <Modal.Header>
                     <Modal.Title>New Task</Modal.Title>
@@ -51,7 +66,8 @@ export const AddTaskModal = ({id, getTasks}) => {
                             <input type='text' 
                                 name='task-title' 
                                 value = {taskTitle}
-                                onChange = {(e) => setTaskTitle(e.target.value)}  
+                                onChange = {(e) => setTaskTitle(e.target.value)}
+                                autoComplete = 'off'  
                             />
                             <label for ='task-description'> Task Description </label>      
                             <input type='text'
@@ -61,13 +77,17 @@ export const AddTaskModal = ({id, getTasks}) => {
                                 onChange = {(e) => setTaskDescription(e.target.value)}
                             />
                             <label for ='task-priority'> Task Priority </label>      
-                            <input type='text'
+                            <select
                                 name='task-priority'
                                 value={taskPriority}
                                 onChange={(e) => setTaskPriority(e.target.value)}
-                            />
+                            >
+                                <option value = 'Low'> Low </option>
+                                <option value = 'Medium'> Medium </option>
+                                <option value = 'High'> High</option>
+                            </select>
                             <br />
-                            <Button variant="primary" onClick={handleSubmit}>
+                            <Button variant="primary" onClick={(e) => handleSubmit(e)}>
                                 Submit
                             </Button>
                         </form>

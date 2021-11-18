@@ -7,6 +7,12 @@ router.route('/').get((req,res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
+router.route('/getTasks/:id').get((req,res) => {
+    Project.findById(req.params.id)
+        .then(project => res.json(project))
+        .catch(err => res.status(400).json('Error: ' + err))
+})
+
 router.route('/add').post((req,res) => {
 
     const title = req.body.title;
@@ -39,6 +45,20 @@ router.route('/addTask/:id').post((req,res) => {
         .then(() => res.json('Task Added'))
         .catch(err => res.status(400).json('Error '+ err))
 })
+
+router.route('/:id').post((req,res) => {
+    Project.findByIdAndUpdate(req.params.id,
+        {$pull:
+        {"tasks": {"_id": req.body._id}}},
+        {new:true} )
+        .then(() => res.json('Task array Updated'))
+        .catch(err => res.status(400).json('Error '+ err))
+    
+})
+
+
+
+
 
 
 module.exports = router

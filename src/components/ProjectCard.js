@@ -1,29 +1,40 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { TaskCard } from './TaskCard'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import {
-    Link
-  } from "react-router-dom"
+import UserContext from '../context/GlobalState';
+import XCircle from '../images/XCircle';
  
 //Project cards mapped from projects page. Brief description of project with link to tasks page
 
-export const ProjectCard = ({title, id, deleteProject}) => {
+export const ProjectCard = ({title, id, deleteProject, project}) => {
+
+    const {setCurrentProject, currentProject, getProjects} = useContext(UserContext)
+
+
+    const handleShow = () => {
+        getProjects()
+
+        setCurrentProject({
+            ...project
+        })
+
+        console.log(currentProject)
+    }
 
     const handleClick = () => {
        deleteProject(id)
     }
 
+
     return (
         <>
-        <Card border="info" className='project-card'>
-            <Card.Body>
-                <Card.Title><Link to={`/${id}`} className='card-link'>{title}</Link></Card.Title>
-                <Card.Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </Card.Text>
-                <Button onClick = {() => handleClick()}>Delete</Button>
+            <Card.Body className='project-card'>
+                <h6 onClick={() => {handleShow()}} className ='card-link'>
+                    {title}    
+                </h6>
+                <button onClick = {() => handleClick()}> <XCircle /> </button>
             </Card.Body>
-        </Card>
         </>
     )
 }

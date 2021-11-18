@@ -19,15 +19,10 @@ const Projects =  () => {
 
 
     return (
-        <motion.div
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        exit={{ scaleY: 0 }}
-        transition={{ duration: 0.25 }}
-        >
-            <h1 className='main-header'>Project Tracker</h1>
+        <div className='projects'>
+            <h1 className='main-header'>Projects</h1>
             {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}
-            <div className ='projects'>
+            <ul>
                 {projects.map(project => {
                     return(
                         <li key = {project._id}>
@@ -36,13 +31,14 @@ const Projects =  () => {
                             tasks = {project.tasks}
                             id= {project._id}
                             deleteProject={deleteProject}
-                            deleteTask ={deleteTask} 
+                            deleteTask ={deleteTask}
+                            project = {project} 
                         />
                         </li>
                     )
                 })}
-            </div>
-        </motion.div>
+           </ul>
+        </div>
     )
 }
 
