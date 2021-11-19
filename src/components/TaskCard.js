@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import UserContext from '../context/GlobalState'
 import Card from 'react-bootstrap/Card'
-import XCircle from '../images/XCircle'
 
-import axios from 'axios'
+import Menu from '../images/Menu'
 
 export const TaskCard = ({task, getTasks}) => {
 
@@ -18,16 +17,16 @@ export const TaskCard = ({task, getTasks}) => {
 
 
     return (
-        <div>
-            <Card border='info'>
-                <Card.Title>{task.taskTitle} </Card.Title>
+
+            <Card className = 'task-card' border='info'>
+                <Card.Title>{task.taskTitle}</Card.Title>
                 <Card.Body>
-                    <Card.Text>
+                    <Card.Text className = 'task-description'>
                     {task.taskDescription} 
                     </Card.Text>
                 </Card.Body>
-                <button onClick = {() => handleDelete()}> Delete </button>
+                <button onClick = {() => handleDelete()}> <Menu /> </button>
             </Card>
-        </div>
+
     )
 }

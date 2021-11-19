@@ -19,7 +19,6 @@ export const AddTaskModal = ({currentProject, getTasks}) => {
     const [taskDescription, setTaskDescription] = useState('');
     const [taskPriority, setTaskPriority] = useState('');
 
-    const {projects, getProjects, tasks, setTasks} = useContext(UserContext)
 
     const handleShow = () => {
         setShow(true)
@@ -55,7 +54,7 @@ export const AddTaskModal = ({currentProject, getTasks}) => {
     
     return (
         <div>
-            {currentProject == null ? 'Select a Project to create tasks': <button onClick={() => handleShow()}> <PlusCircle/> </button>}
+            {Object.keys(currentProject).length === 0 ?  'Select a Project to create tasks': <button onClick={() => handleShow()}> <PlusCircle/> </button>}
             <Modal show={show} onHide = {handleClose}>
                 <Modal.Header>
                     <Modal.Title>New Task</Modal.Title>
@@ -70,7 +69,7 @@ export const AddTaskModal = ({currentProject, getTasks}) => {
                                 autoComplete = 'off'  
                             />
                             <label for ='task-description'> Task Description </label>      
-                            <input type='text'
+                            <textarea
                                 name='task-description'
                                 value = {taskDescription}
                                 autoComplete = 'off'

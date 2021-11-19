@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState} from "react";
+import { useContext, useState} from "react";
 import { ProjectCard } from "./ProjectCard";
+import { AddProjectModal } from "./AddProjectModal";
+
 import UserContext from '../context/GlobalState';
 
-import axios from 'axios'
+import { ListGroup } from 'react-bootstrap'
 
-import { motion } from "framer-motion";
 
-import { AddProjectModal } from "./AddProjectModal";
 
 //Main page with list of all projects. Currently pulling sample data will include add project functionality
 
@@ -20,12 +20,12 @@ const Projects =  () => {
 
     return (
         <div className='projects'>
-            <h1 className='main-header'>Projects</h1>
+            <h4 className='main-header'>Projects</h4>
             {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}
-            <ul>
+            <ListGroup variant='flush'>
                 {projects.map(project => {
                     return(
-                        <li key = {project._id}>
+                        <ListGroup.Item key = {project._id}>
                         <ProjectCard 
                             title = {project.title}
                             tasks = {project.tasks}
@@ -34,10 +34,10 @@ const Projects =  () => {
                             deleteTask ={deleteTask}
                             project = {project} 
                         />
-                        </li>
+                        </ListGroup.Item>
                     )
                 })}
-           </ul>
+           </ListGroup>
         </div>
     )
 }

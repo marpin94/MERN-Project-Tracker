@@ -1,7 +1,15 @@
-* {
-  margin: 8px;
+
+.nav {
+  width: 100%;
+  justify-content: center;
+  background-color: lightblue;
+  margin-bottom: 8px;
 }
-.app{
+
+.nav-header {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.grid{
   display: grid;
   grid-template-columns: 0.4fr 1.6fr;
   grid-column-gap: 0px;
@@ -12,14 +20,13 @@
 
 .projects{
   grid-area: projects;
-  /* display: flex; */
-  /* flex-direction: column; */
+  margin: 8px;
+  border-right: 1px solid lightblue;
 }
 
 .tasks{
   grid-area: tasks;
-  /* display: flex;
-  flex-direction: column; */
+  margin: 8px;
 }
 
 button {
@@ -49,6 +56,8 @@ li {
 
 .card-link:hover {
   cursor: pointer;
+  transform: scale(1.05);
+  transition:.5s ease-in-out
 }
 
 .project-card {
@@ -61,6 +70,28 @@ li {
   transition:.5s ease-in-out
 }
 
+.delete-project-btn {
+  float: right;
+}
+
+/*Task Cards*/
+
+.task-card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.task-card {
+  padding: 24px;
+  margin: 8px;
+}
+
+.task-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+}
 
 /* FORMS / MODAL */
 

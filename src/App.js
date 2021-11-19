@@ -1,11 +1,13 @@
 import './App.css';
 import axios from 'axios'
+import {NavBar} from './components/NavBar'
 import {Projects} from './components/Projects';
 import { Tasks } from './components/Tasks';
 import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 import GlobalState from './context/GlobalState';
+
 
 
 
@@ -62,9 +64,12 @@ function App() {
 
   return (
     <div className="app">
+        <NavBar />
       <GlobalState.Provider value ={{projects, setProjects, getProjects, deleteProject, tasks, setTasks, deleteTask, showTasks, setSHowTasks, currentProject, setCurrentProject}} >
+      <div className = "grid">
         <Projects />
-        <Tasks />
+        {Object.keys(currentProject).length === 0 ? '':<Tasks />}
+      </div>
       </GlobalState.Provider>
     </div>
   );
