@@ -9,7 +9,7 @@ import XCircle from "../images/XCircle";
 
 export const ProjectCard = ({title, id, deleteProject, project}) => {
 
-    const {setCurrentProject, currentProject, getProjects} = useContext(UserContext)
+    const {setCurrentProject, getProjects} = useContext(UserContext)
 
 
     const handleShow = () => {
@@ -19,7 +19,6 @@ export const ProjectCard = ({title, id, deleteProject, project}) => {
             ...project
         })
 
-        console.log(currentProject)
     }
 
     const handleClick = () => {

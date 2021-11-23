@@ -10,7 +10,8 @@ const projectSchema = new Schema({
         {
             taskTitle: {type:String},
             taskDescription:{type:String},
-            priority: {type:String}            
+            priority: {type:String},
+            complete: {type:Boolean}            
         }
     ]
 }, {

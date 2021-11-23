@@ -3,18 +3,11 @@ import axios from 'axios'
 import {NavBar} from './components/NavBar'
 import {Projects} from './components/Projects';
 import { Tasks } from './components/Tasks';
-import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 import GlobalState from './context/GlobalState';
 
-
-
-
-
 function App() {
-
-  const location = useLocation(); 
 
   const getProjects = () => {
     axios.get('/Projects')
@@ -25,26 +18,17 @@ function App() {
       console.log(err)
     })
   }
-
-
   
-
   const deleteProject = (id) => {
     axios.delete('/Projects/'+id)
     .then(response => {console.log(response.data)})
 
     getProjects()
-
   }
 
   const deleteTask = async (id, task) => {
-    await axios.post('/Projects/'+id, task)
+    await axios.put('/Projects/'+id, task)
     .then(response => {console.log(response.data)})
-
-    getProjects()
-
-    setTasks(currentProject.tasks)
-  
   }
 
   useEffect(() => {
@@ -65,7 +49,18 @@ function App() {
   return (
     <div className="app">
         <NavBar />
-      <GlobalState.Provider value ={{projects, setProjects, getProjects, deleteProject, tasks, setTasks, deleteTask, showTasks, setSHowTasks, currentProject, setCurrentProject}} >
+      <GlobalState.Provider value ={{projects,
+          setProjects,
+          getProjects,
+          deleteProject,
+          tasks,
+          setTasks,
+          deleteTask,
+          showTasks,
+          setSHowTasks,
+          currentProject,
+          setCurrentProject
+          }} >
       <div className = "grid">
         <Projects />
         {Object.keys(currentProject).length === 0 ? '':<Tasks />}

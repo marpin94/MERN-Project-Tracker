@@ -1,31 +1,62 @@
-import React, { useContext, useEffect } from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../context/GlobalState'
+
 import Card from 'react-bootstrap/Card'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 import Menu from '../images/Menu'
 
-export const TaskCard = ({task, getTasks}) => {
+export const TaskCard = ({task, getTasks, currentProject}) => {
 
-    const {deleteTask, currentProject} = useContext(UserContext)
+    const {deleteTask, setTasks, getProjects} = useContext(UserContext)
 
-
+    const [border, setBorder] = useState('info')
+   
 
     const handleDelete = () => {
         deleteTask(currentProject._id, task)
+        getProjects()
+
+        setTasks(currentProject.tasks)
         getTasks(currentProject._id)
+    }
+
+    const setComplete = () => {
+        setBorder('success')
+    }
+
+    const handleComplete = () => {
+        axios.post('/Projects/updateTask/'+ currentProject._id, task)
+        .then(response => {console.log(response.data)})
+
+        getProjects()
+
+        setTasks(currentProject.tasks)
+        getTasks(currentProject._id)
+
     }
 
 
     return (
 
-            <Card className = 'task-card' border='info'>
+            <Card className = {task.complete ? 'task-card-complete': 'task-card'}>
                 <Card.Title>{task.taskTitle}</Card.Title>
                 <Card.Body>
                     <Card.Text className = 'task-description'>
-                    {task.taskDescription} 
+                    {task.complete ? 'Task Completed':task.taskDescription} 
                     </Card.Text>
                 </Card.Body>
-                <button onClick = {() => handleDelete()}> <Menu /> </button>
+                <Dropdown>
+                    <Dropdown.Toggle variant='info'>
+                        <Menu /> 
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu variant = 'dark'>
+                        <Dropdown.Item  onClick = {() => handleDelete()}> Delete Task </Dropdown.Item>
+                        <Dropdown.Item> Edit Task </Dropdown.Item>
+                        <Dropdown.Item onClick = {() => handleComplete()}> Mark Complete </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </Card>
 
     )

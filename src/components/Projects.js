@@ -20,8 +20,7 @@ const Projects =  () => {
 
     return (
         <div className='projects'>
-            <h4 className='main-header'>Projects</h4>
-            {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}
+            <h4 className='main-header'>Projects {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}</h4>
             <ListGroup variant='flush'>
                 {projects.map(project => {
                     return(
@@ -38,6 +37,7 @@ const Projects =  () => {
                     )
                 })}
            </ListGroup>
+           
         </div>
     )
 }

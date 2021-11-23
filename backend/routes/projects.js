@@ -40,20 +40,29 @@ router.route('/addTask/:id').post((req,res) => {
         {$push:
         {"tasks": {taskTitle: req.body.taskTitle, 
         taskDescription: req.body.taskDescription, 
-        priority: req.body.priority}}},
+        priority: req.body.priority,
+        complete: req.body.complete}}},
         {safe:true, upsert:true, new:true} )
         .then(() => res.json('Task Added'))
         .catch(err => res.status(400).json('Error '+ err))
 })
 
-router.route('/:id').post((req,res) => {
+router.route('/:id').put((req,res) => {
     Project.findByIdAndUpdate(req.params.id,
         {$pull:
         {"tasks": {"_id": req.body._id}}},
         {new:true} )
         .then(() => res.json('Task array Updated'))
-        .catch(err => res.status(400).json('Error '+ err))
-    
+        .catch(err => res.status(400).json('Error '+ err))    
+})
+
+router.route('/updateTask/:id').post((req,res) => {
+   Project.updateOne(
+       {'_id': req.params.id, 'tasks._id':req.body._id},
+       {$set: {"tasks.$.complete": true}}
+   )
+        .then(()=> res.json('Task Marked Complete'))
+        .catch(err => res.status(400).json('Error ' + err))
 })
 
 

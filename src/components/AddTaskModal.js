@@ -31,7 +31,8 @@ export const AddTaskModal = ({currentProject, getTasks}) => {
             taskTitle: taskTitle,
             taskDescription: taskDescription,
             priority: taskPriority,
-            id: currentProject._id
+            id: currentProject._id,
+            complete: false
         }
 
         axios.post('/Projects/addTask/'+currentProject._id, newTask)
