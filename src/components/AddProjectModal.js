@@ -6,7 +6,7 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import PlusCircle from "../images/PlusCircle";
+
 
 export const AddProjectModal = ({getProjects}) => {
 
@@ -46,7 +46,7 @@ export const AddProjectModal = ({getProjects}) => {
     }
     return (
         <div>
-            <button onClick={() => handleShow()}> <PlusCircle /> </button>            
+            <Button variant ='info' onClick={() => handleShow()} className = 'add-btn'> New Project </Button>            
             <Modal show={show} onHide = {handleClose}>
                 <Modal.Header>
                     <Modal.Title>New Project</Modal.Title>

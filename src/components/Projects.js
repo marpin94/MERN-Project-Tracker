@@ -20,11 +20,12 @@ const Projects =  () => {
 
     return (
         <div className='projects'>
-            <h4 className='main-header'>Projects {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}</h4>
-            <ListGroup variant='flush'>
+            <h4 className='main-header'>Projects</h4>
+            {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}
+            {/* <ListGroup variant='flush'> */}
                 {projects.map(project => {
                     return(
-                        <ListGroup.Item key = {project._id}>
+                        // <ListGroup.Item key = {project._id} >
                         <ProjectCard 
                             title = {project.title}
                             tasks = {project.tasks}
@@ -33,10 +34,10 @@ const Projects =  () => {
                             deleteTask ={deleteTask}
                             project = {project} 
                         />
-                        </ListGroup.Item>
+                        // </ListGroup.Item>
                     )
                 })}
-           </ListGroup>
+           {/* </ListGroup> */}
            
         </div>
     )

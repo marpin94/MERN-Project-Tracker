@@ -3,10 +3,6 @@ import {useState, useContext, useEffect} from "react";
 
 import axios from 'axios'
 
-import UserContext from '../context/GlobalState';
-
-import PlusCircle from "../images/PlusCircle";
-
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
@@ -55,7 +51,7 @@ export const AddTaskModal = ({currentProject, getTasks}) => {
     
     return (
         <div>
-            {Object.keys(currentProject).length === 0 ?  'Select a Project to create tasks': <button onClick={() => handleShow()}> <PlusCircle/> </button>}
+            {Object.keys(currentProject).length === 0 ?  'Select a Project to create tasks': <Button variant='info' className='add-btn' onClick={() => handleShow()}> New Task </Button>}
             <Modal show={show} onHide = {handleClose}>
                 <Modal.Header>
                     <Modal.Title>New Task</Modal.Title>

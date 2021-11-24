@@ -34,7 +34,8 @@ export const Tasks = () => {
 
     return (
             <div className = 'tasks'>
-                <h4 className='main-header'>{currentProject.title} {show? '': <AddTaskModal show={show} setShow={setShow} currentProject = {currentProject} getTasks={getTasks} />} </h4>
+                <h4 className='main-header'>{currentProject.title}</h4>
+                {show? '': <AddTaskModal show={show} setShow={setShow} currentProject = {currentProject} getTasks={getTasks} />}
                 <p className = 'main-header'>{currentProject.description}</p>
                 <ul className = 'task-card-container'>{Object.keys(currentProject).length === 0 ? '':currentProject.tasks.map(task => <TaskCard task ={task} currentProject = {currentProject} getTasks={getTasks}/>)}</ul>               
             </div>

@@ -10,9 +10,12 @@ import Menu from '../images/Menu'
 export const TaskCard = ({task, getTasks, currentProject}) => {
 
     const {deleteTask, setTasks, getProjects} = useContext(UserContext)
+    
+    const [showDescription, setShowDesription] = useState(false)
 
-    const [border, setBorder] = useState('info')
-   
+    const handleShow = () => {
+        setShowDesription(!showDescription)
+    }
 
     const handleDelete = () => {
         deleteTask(currentProject._id, task)
@@ -20,10 +23,6 @@ export const TaskCard = ({task, getTasks, currentProject}) => {
 
         setTasks(currentProject.tasks)
         getTasks(currentProject._id)
-    }
-
-    const setComplete = () => {
-        setBorder('success')
     }
 
     const handleComplete = () => {
@@ -41,19 +40,18 @@ export const TaskCard = ({task, getTasks, currentProject}) => {
     return (
 
             <Card className = {task.complete ? 'task-card-complete': 'task-card'}>
-                <Card.Title>{task.taskTitle}</Card.Title>
                 <Card.Body>
-                    <Card.Text className = 'task-description'>
+                    <Card.Title className ='task-title'><h5>{task.taskTitle}</h5></Card.Title>
+                    <Card.Text className = {showDescription ? 'show-task-description':'task-description'} onClick = {() => handleShow()}>
                     {task.complete ? 'Task Completed':task.taskDescription} 
                     </Card.Text>
                 </Card.Body>
                 <Dropdown>
-                    <Dropdown.Toggle variant='info'>
+                    <Dropdown.Toggle variant='info' className='drop-down'>
                         <Menu /> 
                     </Dropdown.Toggle>
-                    <Dropdown.Menu variant = 'dark'>
+                    <Dropdown.Menu variant="dark">
                         <Dropdown.Item  onClick = {() => handleDelete()}> Delete Task </Dropdown.Item>
-                        <Dropdown.Item> Edit Task </Dropdown.Item>
                         <Dropdown.Item onClick = {() => handleComplete()}> Mark Complete </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

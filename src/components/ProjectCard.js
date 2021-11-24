@@ -27,11 +27,11 @@ export const ProjectCard = ({title, id, deleteProject, project}) => {
 
 
     return (
-        <>
+        <div className='project-card'>
             <p onClick={() => {handleShow()}} className ='card-link'>
-                {title}    
+                {title}  
             </p>
-            <button className = 'delete-project-btn' onClick = {() => handleClick()}> <XCircle /> </button>
-        </>
+            <button className = 'delete-project-btn' onClick = {() => handleClick()}> <XCircle /> </button>    
+        </div>
     )
 }
