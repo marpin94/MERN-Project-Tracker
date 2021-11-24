@@ -23,7 +23,7 @@ html{
 .grid{
   display: grid;
   grid-template-columns: 0.4fr 1.6fr;
-  grid-column-gap: 0px;
+  grid-column-gap: 16px;
   grid-row-gap: 0px;
   grid-template-areas: 
     "projects tasks";
@@ -33,6 +33,7 @@ html{
 
 .projects{
   grid-area: projects;
+  
   height: 100%;
   margin: 8px;
 }

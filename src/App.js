@@ -9,6 +9,10 @@ import GlobalState from './context/GlobalState';
 
 function App() {
 
+  const [projects, setProjects] = useState([])
+  
+  const [currentProject, setCurrentProject] = useState({})
+  
   const getProjects = () => {
     axios.get('/Projects')
     .then(response => {
@@ -19,31 +23,10 @@ function App() {
     })
   }
   
-  const deleteProject = (id) => {
-    axios.delete('/Projects/'+id)
-    .then(response => {console.log(response.data)})
-
-    getProjects()
-  }
-
-  const deleteTask = async (id, task) => {
-    await axios.put('/Projects/'+id, task)
-    .then(response => {console.log(response.data)})
-  }
 
   useEffect(() => {
     getProjects();
-    console.log(Object.keys(currentProject))
   }, [])
-
-
-  const [projects, setProjects] = useState([])
-  const [tasks, setTasks] = useState([])
-
-  const [showTasks, setSHowTasks] = useState(false)
-  const [currentProject, setCurrentProject] = useState({})
-
-  
 
 
   return (
@@ -52,12 +35,6 @@ function App() {
       <GlobalState.Provider value ={{projects,
           setProjects,
           getProjects,
-          deleteProject,
-          tasks,
-          setTasks,
-          deleteTask,
-          showTasks,
-          setSHowTasks,
           currentProject,
           setCurrentProject
           }} >

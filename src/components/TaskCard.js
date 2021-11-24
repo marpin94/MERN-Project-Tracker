@@ -7,15 +7,20 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 import Menu from '../images/Menu'
 
-export const TaskCard = ({task, getTasks, currentProject}) => {
+export const TaskCard = ({task, setTasks, getTasks, currentProject}) => {
 
-    const {deleteTask, setTasks, getProjects} = useContext(UserContext)
+    const {getProjects} = useContext(UserContext)
     
     const [showDescription, setShowDesription] = useState(false)
 
     const handleShow = () => {
         setShowDesription(!showDescription)
     }
+
+    const deleteTask = async (id, task) => {
+        await axios.put('/Projects/'+id, task)
+        .then(response => {console.log(response.data)})
+      }
 
     const handleDelete = () => {
         deleteTask(currentProject._id, task)

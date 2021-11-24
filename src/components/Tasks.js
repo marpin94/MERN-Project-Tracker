@@ -14,8 +14,10 @@ import axios from 'axios'
 
 export const Tasks = () => {
 
+    const [tasks, setTasks] = useState([])
 
-    const {setTasks, currentProject, setCurrentProject,} = useContext(UserContext)
+
+    const {currentProject, setCurrentProject,} = useContext(UserContext)
 
     // //Modal State 
     const [show, setShow] = useState(false)
@@ -37,7 +39,7 @@ export const Tasks = () => {
                 <h4 className='main-header'>{currentProject.title}</h4>
                 {show? '': <AddTaskModal show={show} setShow={setShow} currentProject = {currentProject} getTasks={getTasks} />}
                 <p className = 'main-header'>{currentProject.description}</p>
-                <ul className = 'task-card-container'>{Object.keys(currentProject).length === 0 ? '':currentProject.tasks.map(task => <TaskCard task ={task} currentProject = {currentProject} getTasks={getTasks}/>)}</ul>               
+                <ul className = 'task-card-container'>{Object.keys(currentProject).length === 0 ? '':currentProject.tasks.map(task => <TaskCard task ={task} setTasks={setTasks} currentProject = {currentProject} getTasks={getTasks}/>)}</ul>               
             </div>
     )
 }

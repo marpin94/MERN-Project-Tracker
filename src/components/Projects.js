@@ -14,7 +14,7 @@ const Projects =  () => {
 
     const [show, setShow] = useState(false)
 
-    const {projects, getProjects, deleteProject, deleteTask} = useContext(UserContext)
+    const {projects, getProjects} = useContext(UserContext)
 
 
 
@@ -30,8 +30,7 @@ const Projects =  () => {
                             title = {project.title}
                             tasks = {project.tasks}
                             id= {project._id}
-                            deleteProject={deleteProject}
-                            deleteTask ={deleteTask}
+
                             project = {project} 
                         />
                         // </ListGroup.Item>
