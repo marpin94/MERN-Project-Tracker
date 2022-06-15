@@ -27,8 +27,6 @@ app.get('/', (req, res) => {
 });
   
 
-
-
 const projectsRouter = require('./routes/projects.js')
 app.use('/Projects', projectsRouter)
 
