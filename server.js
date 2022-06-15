@@ -22,20 +22,15 @@ connection.once('open', () => {
 const projectsRouter = require('./routes/projects.js')
 app.use('/Projects', projectsRouter)
 
-app.get('/', (req,res,next) => {
-    res.status(200).json({
-        status:'success',
-        data:{
-            name: 'react-keep-clone',
-            version:'0.1.0'
-        }
-    })
-})
 
-
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'))
-}
+if(process.env.NODE.ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client', 'build')));
+  
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    });
+  
+  }
 
 app.listen(port, () => {
     console.log(`App is running on port ${port}`)
