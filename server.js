@@ -22,13 +22,23 @@ connection.once('open', () => {
 const projectsRouter = require('./routes/projects.js')
 app.use('/Projects', projectsRouter)
 
+app.get('/', (req,res,next) => {
+    res.status(200).json({
+        status:'success',
+        data:{
+            name: 'react-keep-clone',
+            version:'0.1.0'
+        }
+    })
+})
+
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
 }
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`App is running on port ${port}`)
 })
 
 
