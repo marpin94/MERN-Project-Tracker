@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 
 
 
-export const AddProjectModal = ({getProjects}) => {
+export const AddProjectModal = ({getProjects, setProjects}) => {
 
     // Get Projects, passed down from Projecs.js will make call to mongo when Modal is closed -> can this be passed direct from context?
     
@@ -46,7 +46,7 @@ export const AddProjectModal = ({getProjects}) => {
     }
     return (
         <div>
-            <Button variant ='info' onClick={() => handleShow()} className = 'add-btn'> New Project </Button>            
+            <Button  onClick={() => handleShow()} className = 'add-btn'> New Project </Button>            
             <Modal show={show} onHide = {handleClose}>
                 <Modal.Header>
                     <Modal.Title>New Project</Modal.Title>

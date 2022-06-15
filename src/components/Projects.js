@@ -1,10 +1,12 @@
 import { useContext, useState} from "react";
 import { ProjectCard } from "./ProjectCard";
-import { AddProjectModal } from "./AddProjectModal";
+import {NoteForm} from "./NoteForm"
+
 
 import UserContext from '../context/GlobalState';
 
-import { ListGroup } from 'react-bootstrap'
+import styles from '../styles/Projects.module.css'
+import Masonry from "react-masonry-css";
 
 
 
@@ -12,31 +14,41 @@ import { ListGroup } from 'react-bootstrap'
 
 const Projects =  () => {
 
-    const [show, setShow] = useState(false)
 
-    const {projects, getProjects} = useContext(UserContext)
+    const {projects, getProjects, setProjects} = useContext(UserContext)
 
+    const [showForm, setShowForm] = useState(false)
 
+    const breakpointCols = {
+        default: 4,
+        1100: 3,
+        700: 2,
+        500: 1
+    }
+
+    
 
     return (
-        <div className='projects'>
-            <h4 className='main-header'>Projects</h4>
-            {show? '': <AddProjectModal show = {show} setShow = {setShow} getProjects = {getProjects} />}
-            {/* <ListGroup variant='flush'> */}
+        <div className={styles.projects}>
+            <NoteForm showForm={showForm} setShowForm={setShowForm} projects={projects} setProjects={setProjects} getProjects={getProjects}/>
+            <Masonry
+                breakpointCols={breakpointCols}
+                className={styles.myMasonryGrid}
+                columnClassName={styles.myMasonryGridColumn}
+            >  
                 {projects.map(project => {
                     return(
-                        // <ListGroup.Item key = {project._id} >
                         <ProjectCard 
                             title = {project.title}
                             tasks = {project.tasks}
                             id= {project._id}
-
                             project = {project} 
-                        />
-                        // </ListGroup.Item>
+                            key={project._id}
+                        />       
                     )
                 })}
-           {/* </ListGroup> */}
+            </Masonry>
+          
            
         </div>
     )

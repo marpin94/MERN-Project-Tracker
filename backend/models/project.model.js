@@ -5,15 +5,8 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
     title: {type:String, required: true},
-    description:{type:String, required: true},
-    tasks:[
-        {
-            taskTitle: {type:String},
-            taskDescription:{type:String},
-            priority: {type:String},
-            complete: {type:Boolean}            
-        }
-    ]
+    description:{type:String, required: false},
+    pinned:{type:Boolean, default:false}
 }, {
     timestamps:true,
 })

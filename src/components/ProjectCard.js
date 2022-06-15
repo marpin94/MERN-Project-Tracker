@@ -4,24 +4,25 @@ import UserContext from '../context/GlobalState';
 
 import XCircle from "../images/XCircle";
 
+import styles from '../styles/ProjectCard.module.css'
  
 //Project cards mapped from projects page. Brief description of project with link to tasks page
 
-export const ProjectCard = ({title, id, project}) => {
+export const ProjectCard = ({title, id, project, key}) => {
 
-    const {setCurrentProject, getProjects} = useContext(UserContext)
+    const {setCurrentProject, projects, setProjects} = useContext(UserContext)
 
     const deleteProject = (id) => {
         axios.delete('/Projects/'+id)
         .then(response => {console.log(response.data)})
-    
-        getProjects()
+        
+        setProjects(projects.filter(project => id != project._id))
       }
     
 
 
     const handleShow = () => {
-        getProjects()
+        
 
         setCurrentProject({
             ...project
@@ -31,13 +32,17 @@ export const ProjectCard = ({title, id, project}) => {
 
     const handleClick = () => {
        deleteProject(id)
+       setCurrentProject({})
     }
 
 
     return (
-        <div className='project-card'>
-            <p onClick={() => {handleShow()}} className ='card-link'>
+        <div className={styles.projectCard} onClick={() => {handleShow()}} key={key}>
+            <h4>
                 {title}  
+            </h4>
+            <p>
+                {project.description}
             </p>
             <button className = 'delete-project-btn' onClick = {() => handleClick()}> <XCircle /> </button>    
         </div>

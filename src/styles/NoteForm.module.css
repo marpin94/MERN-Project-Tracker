@@ -1,0 +1,50 @@
+.noteForm {
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),
+    0 2px 6px 2px rgba(60,64,67,.15);
+    width:600px;
+    border-radius:8px;
+    margin:20px auto;
+    padding:20px;
+    width: 50%;
+    display: flex;
+    flex-direction:column;
+    margin: 4px auto;
+    transition:display 2s 2s;
+}
+
+.hideTitle{
+    display:none;
+    transition:display 2s 2s;
+}
+
+.noteFormTitle{
+    border:none;
+    color:#000;
+    display:block;
+    width:100%;
+    font-size:18px;
+    margin:10px 0;
+    outline:none;
+    &::placeholder{
+      color:#3c4043;
+      opacity:1;
+    }
+}
+
+.noteFormText{
+    border:none;
+    color:#000;
+    display:block;
+    width:100%;
+    font-family: 'Noto Sans', sans-serif;
+    font-size:13px;
+    font-weight:bold;
+    outline:none;
+    resize: none;
+    overflow: hidden;
+    min-height: 10px;
+    &::placeholder{
+      color:#3c4043;
+      opacity:1;
+    }
+}

@@ -1,0 +1,15 @@
+.projectCard{
+    border: 1px solid black;
+    border-radius: 8px;
+    transition:1s;
+    margin: 8px 0;
+    padding: 8px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.projectCard:hover{
+    transition:1s;
+    transform:scale(1.0005);
+    box-shadow: 4px 4px 4px gray;
+}

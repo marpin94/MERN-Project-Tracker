@@ -2,7 +2,6 @@ import './App.css';
 import axios from 'axios'
 import {NavBar} from './components/NavBar'
 import {Projects} from './components/Projects';
-import { Tasks } from './components/Tasks';
 import { useState, useEffect } from 'react';
 
 import GlobalState from './context/GlobalState';
@@ -31,16 +30,15 @@ function App() {
 
   return (
     <div className="app">
-        <NavBar />
+      <NavBar />
       <GlobalState.Provider value ={{projects,
           setProjects,
-          getProjects,
           currentProject,
-          setCurrentProject
+          setCurrentProject,
+          getProjects
           }} >
       <div className = "grid">
         <Projects />
-        {Object.keys(currentProject).length === 0 ? '':<Tasks />}
       </div>
       </GlobalState.Provider>
     </div>

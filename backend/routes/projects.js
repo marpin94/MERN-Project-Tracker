@@ -15,16 +15,12 @@ router.route('/getTasks/:id').get((req,res) => {
 
 router.route('/add').post((req,res) => {
 
-    const title = req.body.title;
-    const description = req.body.description;
-
     const newProject = new Project({
-        title,
-        description,
+        ...req.body
     })
 
     newProject.save()
-    .then(()=> res.json('Project Added'))
+    .then((data)=> res.json(data))
     .catch((err => res.status(400).json('Error: ' + err)))
 })
 
@@ -34,27 +30,6 @@ router.route('/:id').delete((req,res) => {
     .catch(err => res.status(400).json('Error ' + err))
 })
 
-
-router.route('/addTask/:id').post((req,res) => {
-    Project.findByIdAndUpdate(req.params.id,
-        {$push:
-        {"tasks": {taskTitle: req.body.taskTitle, 
-        taskDescription: req.body.taskDescription, 
-        priority: req.body.priority,
-        complete: req.body.complete}}},
-        {safe:true, upsert:true, new:true} )
-        .then(() => res.json('Task Added'))
-        .catch(err => res.status(400).json('Error '+ err))
-})
-
-router.route('/:id').put((req,res) => {
-    Project.findByIdAndUpdate(req.params.id,
-        {$pull:
-        {"tasks": {"_id": req.body._id}}},
-        {new:true} )
-        .then(() => res.json('Task array Updated'))
-        .catch(err => res.status(400).json('Error '+ err))    
-})
 
 router.route('/updateTask/:id').post((req,res) => {
    Project.updateOne(

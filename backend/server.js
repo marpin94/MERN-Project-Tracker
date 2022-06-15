@@ -22,8 +22,6 @@ connection.once('open', () => {
 const projectsRouter = require('./routes/projects.js')
 app.use('/Projects', projectsRouter)
 
-const tasksRouter = require('./routes/tasks')
-app.use('/Tasks', tasksRouter)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

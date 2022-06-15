@@ -1,12 +1,13 @@
 import React from 'react'
-
 import { Nav } from 'react-bootstrap'
+
+import styles from '../styles/Navbar.module.css'
 
 export const NavBar = () => {
     return (
     <>
-        <Nav className ='nav'>
-            <Nav.Item> <h2 className='nav-header'>React Project Tracker</h2> </Nav.Item>
+        <Nav className ={styles.nav}>
+            <Nav.Item> <h4>React-Keep</h4> </Nav.Item>
         </Nav>
     </>
     )
