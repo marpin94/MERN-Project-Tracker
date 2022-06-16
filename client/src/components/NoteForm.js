@@ -19,16 +19,14 @@ export const NoteForm = ({showForm, setShowForm, projects, setProjects, getProje
         }
 
         axios.post('/Projects/add', newProject)
-            .then(res => console.log(res.data))
+            .then(res => setProjects(projects => ([...projects,res.data])))
 
         setShowForm(false)
 
         setTitle('')
         setNoteBody('')
 
-        getProjects();
-
-        setProjects(projects => [...projects, newProject])
+        // getProjects();
     
     }
 
